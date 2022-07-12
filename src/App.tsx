@@ -1,38 +1,93 @@
-import * as React from 'react';
-import './style.css';
+import * as React from "react";
+import "./App.css";
 
-export default function App() {
+const App = () => {
+  const [name, setName] = React.useState("");
+  const [age, setAge] = React.useState("");
+  const [fav_color, setFavColor] = React.useState("");
 
-  const [name, setName] = React.useState<string>('');
-  const [age, setAge] = React.useState<string | undefined>();
-  
-  const changeName = (event: React.ChangeEvent<HTMLInputElement>) =>{
-    setName(event.target.value);
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
   };
 
-  const changeAge = (event: React.ChangeEvent<HTMLInputElement>) =>{
-    setAge(event.target.value);
-  }
- 
+  const clear = () => {
+    setName("");
+    setAge("");
+    setFavColor("");
+  };
 
   return (
-    <div>
-      <Input name="Name" value={name} />
+    <div className="pa-4">
+      <div className="d-flex v-center h-center">
+        <div className="w-50">
+          <h2>Fill the Form!</h2>
+          <form onSubmit={onSubmit}>
+            <div className="pa-1">
+              <div>
+                <label>Name</label>
+              </div>
+              <input
+                className="my-input full-width"
+                type="text"
+                name="name"
+                placeholder="Enter Name"
+              />
+            </div>
+
+            <div className="pa-1">
+              <div>
+                <label>Age</label>
+              </div>
+              <input
+                className="my-input full-width"
+                type="text"
+                name="age"
+                placeholder="Age"
+              />
+            </div>
+
+            <div className="pa-1">
+              <div>
+                <label>Favourite color</label>
+              </div>
+              <select name="fav_color" className="my-input full-width">
+                {[
+                  "red",
+                  "green",
+                  "blue",
+                  "yellow",
+                  "orange",
+                  "pink",
+                  "cyan",
+                  "grey",
+                  "black",
+                  "white",
+                  "skyblue",
+                ].map((color, index) => (
+                  <option value={color} key={color + index}>
+                    {color}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="pa-1">
+              <button type="submit" className="primary full-width">
+                Submit
+              </button>
+              <button onClick={clear} className="secondary full-width">
+                Clear
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="w-50 pa-4">
+          <p className="special-text">
+            Akmal is 26 years old, and he likes Red color.
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-type InputType = {
-  name: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-const Input = ({value, onChange, name}) => {
-
-}
-
-<div>
-<label>{name}}</label>
-<input value={value} onChange={onChange}/>
-</div>
+export default App;
